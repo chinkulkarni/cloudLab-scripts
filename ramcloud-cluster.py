@@ -67,11 +67,6 @@ for i in range(params.size - 2):
 for i in range(params.size):
     node = rspec.RawPC(rc_aliases[i])
 
-    # Setup a filesystem for nfs.
-    if rc_aliases[i] == "rcnfs":
-        bs = node.Blockstore("bs", "/shome")
-        bs.size = "200GB"
-
     node.hardware_type = params.type
     node.disk_image = urn.Image(cloudlab.Utah, "emulab-ops:%s" % params.image)
 
@@ -91,8 +86,6 @@ for i in range(params.size):
 
     # Add this node to the LAN.
     iface = node.addInterface("eth0")
-    addr = rspec.IPv4Address("10.0.0.%02d" % (i + 1), "255.255.255.0")
-    iface.addAddress(addr)
     lan.addInterface(iface)
 
 # Generate the RSpec
