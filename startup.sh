@@ -74,6 +74,7 @@ hostname=`hostname --short`
 if [ "$hostname" = "rcnfs" ]; then
     # In `cloudlab-profile.py`, we already asked for a temporary file system
     # mounted at /shome.
+    mkdir $SHARED_HOME
     chmod 777 $SHARED_HOME
     echo "$SHARED_HOME *(rw,sync,no_root_squash)" >> /etc/exports
 
@@ -123,7 +124,8 @@ else
     # NFS clients setup: use the publicly-routable IP addresses for both the server
     # and the clients to avoid interference with the experiment.
     rcnfs_ip=`ssh rcnfs "hostname -i"`
-    mkdir $SHARED_HOME; mount -t nfs4 $rcnfs_ip:$SHARED_HOME $SHARED_HOME
+    mkdir $SHARED_HOME;
+    chmod 777 $SHARED_HOME; mount -t nfs4 $rcnfs_ip:$SHARED_HOME $SHARED_HOME
     echo "$rcnfs_ip:$SHARED_HOME $SHARED_HOME nfs4 rw,sync,hard,intr,addr=`hostname -i` 0 0" >> /etc/fstab
 
     # Disable intel_idle driver to gain control over C-states (this driver will
