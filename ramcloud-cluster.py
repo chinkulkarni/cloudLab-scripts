@@ -67,8 +67,25 @@ for i in range(params.size - 2):
 for i in range(params.size):
     node = rspec.RawPC(rc_aliases[i])
 
+    # Setup a filesystem for nfs.
+    if rc_aliases[i] == "rcnfs":
+        bs = node.Blockstore("bs", "/shome")
+        bs.size = "200GB"
+
     node.hardware_type = params.type
     node.disk_image = urn.Image(cloudlab.Utah, "emulab-ops:%s" % params.image)
+
+    # Install and run the startup scripts.
+    node.addService(rspec.Install(
+            url="https://github.com/chinkulkarni/RAMCloud-CloudLab-Scripts/" +\
+                    "archive/master.tar.gz",
+            path="/local"))
+    node.addService(rspec.Execute(
+            shell="sh", command="sudo mv /local/RAMCloud-CloudLab-Scripts-master " +\
+                    "/local/scripts"))
+    node.addService(rspec.Execute(
+            shell="sh",
+            command="sudo /local/scripts/startup.sh %d" % params.size))
 
     request.addResource(node)
 
