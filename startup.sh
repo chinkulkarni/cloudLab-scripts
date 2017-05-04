@@ -5,7 +5,7 @@ HOSTNAME=$(hostname -f | cut -d"." -f1)
 HW_TYPE=$(geni-get manifest | grep $HOSTNAME | grep -oP 'hardware_type="\K[^"]*')
 OS_VER="ubuntu`lsb_release -r | cut -d":" -f2 | xargs`"
 MLNX_OFED="MLNX_OFED_LINUX-3.4-1.0.0.0-$OS_VER-x86_64"
-SHARED_HOME="/shome"
+SHARED_HOME="/srv/shome"
 USERS="root `ls /users`"
 NUM_CPUS=$(lscpu | grep '^CPU(s):' | awk '{print $2}')
 
