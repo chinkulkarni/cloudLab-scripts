@@ -79,7 +79,7 @@ if [ "$hostname" = "rcnfs" ]; then
     echo "$SHARED_HOME *(rw,sync,no_root_squash)" >> /etc/exports
 
     # TODO: HOW TO START THE SERVICE AUTOMATICALLY AFTER REBOOT?
-    /etc/init.d/nfs-kernel-server start
+    /etc/init.d/nfs-kernel-server restart
 
     # Generate a list of machines in the cluster
     cd $SHARED_HOME
