@@ -73,6 +73,11 @@ for i in range(params.size):
     node.hardware_type = params.type
     node.disk_image = urn.Image(cloudlab.Utah, "emulab-ops:%s" % params.image)
 
+    # Request for a 200GB filesystem on the nfs server (rcnfs).
+    if rc_aliases[i] == "rcnfs":
+        bs = node.Blockstore("bs", "/shome")
+        bs.size = "200GB"
+
     # Install and run the startup scripts.
     node.addService(rspec.Install(
             url="https://github.com/chinkulkarni/RAMCloud-CloudLab-Scripts/" +\
