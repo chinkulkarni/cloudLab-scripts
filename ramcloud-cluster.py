@@ -16,7 +16,8 @@ images = [ ("UBUNTU14-64-STD", "Ubuntu 14.04 (64-bit)"),
 
 # The possible set of node-types this cluster can be configured with.
 nodes = [ ("r320", "r320 (Xeon E5 2450, 16 GB RAM, 56 Gbps Mellanox VPI)"),
-        ("c6220", "c6220 (2 x Xeon E5 2650v2, 64 GB RAM, 56 Gbps Mellanox VPI")
+        ("c6220", "c6220 (2 x Xeon E5 2650v2, 64 GB RAM, 56 Gbps Mellanox VPI)"),
+        ("d430", "d430 (2 x Xeon E5 2630v3, 64 GB RAM, 10 Gbps Intel Ethernet)")
         ]
 
 # The set of disks on which RAMCloud will store segment replicas.
