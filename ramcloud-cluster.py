@@ -19,6 +19,9 @@ nodes = [ ("r320", "r320 (Xeon E5 2450, 16 GB RAM, 56 Gbps Mellanox VPI)"),
         ("c6220", "c6220 (2 x Xeon E5 2650v2, 64 GB RAM, 56 Gbps Mellanox VPI")
         ]
 
+# The set of disks on which RAMCloud will store segment replicas.
+disks = [ "/dev/sdb", "/dev/sdc" ]
+
 # Allows for general parameters like disk image to be passed in. Useful for
 # setting up the cloudlab dashboard for this profile.
 context = portal.Context()
@@ -81,6 +84,12 @@ for i in range(params.size):
     node.addService(rspec.Execute(
             shell="sh",
             command="sudo /local/scripts/startup.sh %d" % params.size))
+
+    # Set disk permissions on all nodes except rcmaster and rcnfs.
+    if rc_aliases[i] != "rcmaster" and rc_aliases[i] != "rcnfs":
+        for disk in disks:
+            node.addService(rspec.Execute(
+                    shell="sh", command="sudo chmod 777 %s" % disk))
 
     request.addResource(node)
 
