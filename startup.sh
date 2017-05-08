@@ -5,7 +5,7 @@ HOSTNAME=$(hostname -f | cut -d"." -f1)
 HW_TYPE=$(geni-get manifest | grep $HOSTNAME | grep -oP 'hardware_type="\K[^"]*')
 OS_VER="ubuntu`lsb_release -r | cut -d":" -f2 | xargs`"
 MLNX_OFED="MLNX_OFED_LINUX-3.4-1.0.0.0-$OS_VER-x86_64"
-SHARED_HOME="/srv/shome"
+SHARED_HOME="/shome"
 USERS="root `ls /users`"
 NUM_CPUS=$(lscpu | grep '^CPU(s):' | awk '{print $2}')
 
@@ -72,9 +72,8 @@ echo ssh > /etc/pdsh/rcmd_default
 
 hostname=`hostname --short`
 if [ "$hostname" = "rcnfs" ]; then
-    # In `cloudlab-profile.py`, we already asked for a temporary file system
+    # In `ramcloud-cluster.py`, we already asked for a temporary file system
     # mounted at /shome.
-    mkdir $SHARED_HOME
     chmod 777 $SHARED_HOME
     echo "$SHARED_HOME *(rw,sync,no_root_squash)" >> /etc/exports
 
