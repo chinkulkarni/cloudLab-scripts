@@ -50,8 +50,9 @@ context.defineParameter("size", "Cluster Size",
 
 params = context.bindParameters()
 
-# Reject requests for clusters smaller than 8 nodes.
-if params.size < 8:
+# Reject requests for clusters smaller than 8 nodes. Allow 2 nodes (rcmaster
+# and rcnfs) for microbenchmarking.
+if params.size < 8 and params.size != 2:
     context.reportError(portal.ParameterError(
             "The cluster must consist of atleast 8 nodes."))
 
