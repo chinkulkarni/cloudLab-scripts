@@ -74,6 +74,7 @@ hostname=`hostname --short`
 if [ "$hostname" = "rcnfs" ]; then
     # In `ramcloud-cluster.py`, we already asked for a temporary file system
     # mounted at /shome.
+    mkdir $SHARED_HOME
     chmod 777 $SHARED_HOME
     echo "$SHARED_HOME *(rw,sync,no_root_squash)" >> /etc/exports
 
