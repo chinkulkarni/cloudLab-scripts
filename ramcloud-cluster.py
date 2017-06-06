@@ -1,5 +1,19 @@
 """
 Allocate a cluster of CloudLab machines for RAMCloud.
+
+Instructions:
+All machines will share an nfs filesystem mounted at /shome. This filesystem
+is exported by a special node called `rcnfs'.
+
+All experiment management must be performed on the node called `rcmaster'.
+
+To run RAMCloud, first clone the repository from github into /shome.
+Next, run /local/scripts/localconfigGen.py with the number of nodes - 2 as
+a command line argument. Save the output of this command to a file called
+localconfig.py under RAMCloud/scripts.
+
+The above steps should be sufficient to run ClusterPerf on the allocated
+cluster.
 """
 
 import geni.urn as urn
