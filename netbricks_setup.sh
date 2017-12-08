@@ -7,7 +7,7 @@ OS_VER="ubuntu`lsb_release -r | cut -d":" -f2 | xargs`"
 NUM_CPUS=$(lscpu | grep '^CPU(s):' | awk '{print $2}')
 
 # Test if startup service has run before.
-if [ -f ./startup_service_done ]; then
+if [ -f /local/startup_service_done ]; then
     # Configurations that need to be (re)done after each reboot
 
     # TODO: Bind NIC to dpdk.
