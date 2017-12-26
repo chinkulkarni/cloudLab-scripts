@@ -50,9 +50,9 @@ params = context.bindParameters()
 
 request = rspec.Request()
 
-# Create a local area network.
+# Create a local area network over a 10 Gbps.
 lan = rspec.LAN()
-request.addResource(lan)
+lan.bandwidth = 10000000 # This is in kbps.
 
 # Setup node names.
 rc_aliases = []
@@ -65,6 +65,7 @@ for i in range(params.size):
 
     node.hardware_type = params.type
     node.disk_image = urn.Image(cloudlab.Utah, "emulab-ops:%s" % params.image)
+    node.Site('Site 1')
 
     # Install and run the startup scripts.
     node.addService(rspec.Install(
@@ -84,6 +85,9 @@ for i in range(params.size):
     # Add this node to the LAN.
     iface = node.addInterface("eth0")
     lan.addInterface(iface)
+
+# Add the lan to the request.
+request.addResource(lan)
 
 # Generate the RSpec
 context.printRequestRSpec(request)
