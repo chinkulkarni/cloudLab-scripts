@@ -21,7 +21,7 @@ apt-get --assume-yes install mosh vim tmux pdsh tree axel
 
 # Install NetBricks dependencies.
 apt-get --assume-yes install libgnutls30 libgnutls-openssl-dev \
-        libcurl4-gnutls-dev libnuma-dev libpcap-dev clang
+        libcurl4-gnutls-dev libnuma-dev libpcap-dev clang numactl
 
 # Change user login shell to Bash
 for user in `ls /users`; do
