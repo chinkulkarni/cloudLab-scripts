@@ -16,7 +16,8 @@ images = [ ("UBUNTU16-64-STD", "Ubuntu 16.04 (64-bit)") ]
 
 # The possible set of node-types this cluster can be configured with.
 nodes = [
-        ("d430", "d430 (2 x Xeon E5 2630v3, 64 GB RAM, 10 Gbps Intel Ethernet)")
+        ("d430", "d430 (2 x Xeon E5 2630v3, 64 GB RAM, 10 Gbps Intel Ethernet)"),
+        ("c6420", "c6420 (2 x Xeon Gold 6142, 384 GB RAM, 10 Gbps Intel Ethernet)")
         ]
 
 # The set of disks to mount.
@@ -65,15 +66,14 @@ for i in range(params.size):
 
     node.hardware_type = params.type
     node.disk_image = urn.Image(cloudlab.Utah, "emulab-ops:%s" % params.image)
-    node.Site('Site 1')
 
     # Install and run the startup scripts.
     node.addService(rspec.Install(
-            url="https://github.com/chinkulkarni/RAMCloud-CloudLab-Scripts/" +\
+            url="https://github.com/chinkulkarni/cloudLab-scripts/" +\
                     "archive/master.tar.gz",
             path="/local"))
     node.addService(rspec.Execute(
-            shell="sh", command="sudo mv /local/RAMCloud-CloudLab-Scripts-master " +\
+            shell="sh", command="sudo mv /local/cloudLab-scripts-master " +\
                     "/local/scripts"))
 
     node.addService(rspec.Execute(
