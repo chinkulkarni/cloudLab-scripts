@@ -69,11 +69,11 @@ for i in range(params.size):
 
     # Install and run the startup scripts.
     node.addService(rspec.Install(
-            url="https://github.com/chinkulkarni/RAMCloud-CloudLab-Scripts/" +\
+            url="https://github.com/chinkulkarni/cloudLab-scripts/" +\
                     "archive/master.tar.gz",
             path="/local"))
     node.addService(rspec.Execute(
-            shell="sh", command="sudo mv /local/RAMCloud-CloudLab-Scripts-master " +\
+            shell="sh", command="sudo mv /local/cloudLab-scripts-master " +\
                     "/local/scripts"))
 
     node.addService(rspec.Execute(
